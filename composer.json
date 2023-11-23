@@ -19,7 +19,10 @@
             "email": "amir.siyanoor@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+      "ext-pdo": "*",
+      "ext-mysqli": "*"
+    },
     "require-dev": {
         "phpunit/phpunit": "10.3.5"
     }

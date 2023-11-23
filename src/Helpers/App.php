@@ -16,12 +16,12 @@ class App
         $this->config = Config::get('app');
     }
 
-    public function isDebugMode(): bool {
+    public function isDebugMode(): mixed {
 
         if(!isset($this->config['debug'])){
             return false;
         }
-        return $this->config['debug'];
+        return $this->isTestMode() ? 'test' : $this->config['debug'];
     }
 
     public function getEnvironment(): string
@@ -45,9 +45,17 @@ class App
         return php_sapi_name() == 'cli' || php_sapi_name() == 'phpbg';
     }
 
-    public function getServeTime(): DateTimeInterface
+    public function getServerTime(): DateTimeInterface
     {
         return new DateTime('now',new DateTimeZone($this->config['timezone']));
+    }
+
+    public function isTestMode(): bool
+    {
+        if($this->isRunningFromConsole() && define('PHPUNIT_RUNNING') && PHPUNIT_RUNNING == true){
+            return false;
+        }
+        return false;
     }
 
 }

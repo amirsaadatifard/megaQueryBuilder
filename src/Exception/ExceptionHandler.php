@@ -15,7 +15,9 @@ class ExceptionHandler
     {
         $app = new App;
         if($app->isDebugMode()){
+            echo '<pre>';
             var_dump($exception);
+            echo '</pre>';
         }else{
             echo "This should not have happened , please try again !";
         }
@@ -24,6 +26,6 @@ class ExceptionHandler
 
     public function convertWarningsAndNoticesToException($severity, $message, $file, $line)
     {
-        throw new ErrorException($message, $severity, $file, $line);
+        throw new ErrorException($message, $severity, $severity, $file , $line);
     }
 }
